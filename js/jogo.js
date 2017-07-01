@@ -2,6 +2,7 @@ var stop_time = null;
 var tempo = 0;
 var qtd_baloes = 64;
 var estourados = 0;
+var limite = 0;
 
 function nivelDoJogo(){
 	
@@ -51,39 +52,58 @@ function criar_baloes(qtd_baloes){
 	}	
 }
 
-function cronometrar(segundos){
+function cronometrar(tempo){
 	
-	segundos = segundos - 1;
+	tempo = tempo - 1;
+	limite = tempo;
 
-	if(segundos == -1){
+	if(tempo == -1){
 		clearTimeout(stop_time);
+		verificaTempo();
 		return false;
 	}
 
-	document.getElementById('cronometro').innerHTML = segundos;
+	document.getElementById('cronometro').innerHTML = tempo;
 
-	stop_time = setTimeout("cronometrar("+segundos+")", 1000);	
+	stop_time = setTimeout("cronometrar("+tempo+")", 1000);	
 }
 
 function estourar(id_balao){
 	
-	var id_balao = id_balao.id;
+	if(limite == -1){
+		verificaTempo();	
+	}else{
+		var id_balao = id_balao.id;
 
-	document.getElementById(id_balao).src = 'imagens/balao_azul_pequeno_estourado.png';
+		document.getElementById(id_balao).src = 'imagens/balao_azul_pequeno_estourado.png';
 
-	document.getElementById(id_balao).setAttribute("onclick", "");
+		document.getElementById(id_balao).setAttribute("onclick", "");
 
-	pontuacao(-1);
-
-	id_balao.onclick("");
+		pontuacao(-1);
+	}
 }	
 
 function pontuacao(valor){
 
-	qtd_baloes = qtd_baloes - 1;
-	estourados = estourados + 1;
+	qtd_baloes = qtd_baloes + valor;
+	estourados = estourados - valor;
 
 	document.getElementById('baloes_inteiros').innerHTML = qtd_baloes;
 	
 	document.getElementById('baloes_estourados').innerHTML = estourados;
+
+	situacao(qtd_baloes);
+}
+
+function situacao(qtd_baloes){
+	if(qtd_baloes == 0){
+		clearTimeout(stop_time);	
+		alert("Parabéns vc ganhou!");
+	}
+}
+
+function verificaTempo(){
+	if(limite == -1){
+		alert('Fim de Jogo');
+	}
 }
