@@ -1,0 +1,34 @@
+header{
+	margin: 0px auto;
+}
+/* --- Contagem de baloões --- */
+#contagem{
+	float: left;
+	border: 1px solid black;
+	width:auto; 
+	height:500px;
+	margin: 0px 4px;
+}
+
+img{
+	padding: 10px;
+	margin-bottom: 10px;
+}
+#img_cronometro{
+	background: url('../imagens/cronometro.png');
+	background-repeat: no-repeat;
+	width: 140px;
+	height: 133px;
+	
+	text-align:center;
+	font-size: 20px;
+	color: red;
+}
+
+/* --- Área dos Balões --- */
+#cenario{
+	background: url('../imagens/cenario.png'); 
+	width: 500px;
+	height: 500px;
+	float: left;
+}
